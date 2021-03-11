@@ -12,7 +12,7 @@ const options = {
 
 const connectDb = async ({ host, port, dbName }) => {
     const uri = `mongodb://${host}:${port}/${dbName}`
-    mongoose.connect(uri, options)
+    await mongoose.connect(uri, options)
 }
 
 module.exports = connectDb
