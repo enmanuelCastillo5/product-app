@@ -1,34 +1,30 @@
-import React, { useState, useEffect } from 'react'
-import Loading from "./Loading";
-import { getProducts } from "../services";
+import React from 'react'
+import { Card, Columns, Content, Heading } from "react-bulma-components";
 
-
-const ListProduct = () => {
-    const [ isLoading, setIsLoading ] = useState(true);
-    const [ products, setProducts ] = useState([]);
-
-    useEffect(() => {
-        const loadProduct = async () => {
-            const response = await getProducts()
-
-            if (response.status === 200) {
-                setProducts(response.data)
-            }
-
-            setIsLoading(false)
-        }
-        loadProduct();
-    }, [])
-
-    if (isLoading) {
-        return <Loading />
-    }
-
-    if (!products.length) {
-        return <h2 className='title has-text-centered has-text-danger'>you don't have products</h2>
-    }
+const ListProduct = ({ products }) => {
     return (
-        <h3 className='title has-text-centered has-text-primary'>Mostrar productos</h3>
+        <Columns>
+        {
+            products.map(({name, size, unitaryPrice, description, imgUrl, _id }) => (
+                <Columns.Column key={_id} size={3}>
+                <Card>
+                    <Card.Image src={imgUrl} size='16by9' />
+                    <Card.Content>
+                        <Content>
+                            <Heading>{name}</Heading>
+                            <Heading size={4} subtitle>Price: {unitaryPrice}</Heading>
+                            <Heading size={6} subtitle>Size: {size}</Heading>
+                            <p>
+                                {description}
+                            </p>
+
+                        </Content>
+                    </Card.Content>
+                </Card>
+                </Columns.Column>
+            ))
+        }
+        </Columns>
     )
 }
 
