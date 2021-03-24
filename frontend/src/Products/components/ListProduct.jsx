@@ -1,7 +1,12 @@
 import React from 'react'
-import { Card, Columns, Content, Heading } from "react-bulma-components";
-
+import { Card, Columns, Content, Heading, Button } from "react-bulma-components";
+import { deleteProduct } from "../services";
 const ListProduct = ({ products }) => {
+
+    const deleteClick = async (id, name) => {
+        console.log(`${id}: ${name}`)
+        await deleteProduct(id)
+    }
     return (
         <Columns>
         {
@@ -17,7 +22,7 @@ const ListProduct = ({ products }) => {
                             <p>
                                 {description}
                             </p>
-
+                            <Button onClick={() => deleteClick(_id, name)} color='danger'>Delete</Button>
                         </Content>
                     </Card.Content>
                 </Card>

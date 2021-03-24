@@ -10,6 +10,15 @@ export const getProducts = async () => {
     }
 }
 
+export const deleteProduct = async (id) => {
+    try {
+        const res = await axios.delete(`${baseUrl}/products/${id}`)
+        return res
+    } catch (error) {
+        console.log(error)
+    }
+}
+
 export const saveProduct = async (productData) => {
     try {
         console.log(productData)
